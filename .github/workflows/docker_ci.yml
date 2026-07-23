@@ -2,8 +2,8 @@ name: Build and Push ML Model to Docker Hub
 
 on:
   push:
-    paths:
-      - 'Workflow-CI/**' # Hanya berjalan jika ada perubahan di folder Workflow-CI
+    branches:
+      - main
 
 jobs:
   build-and-push:
@@ -24,7 +24,7 @@ jobs:
 
       - name: Run Model Training
         run: |
-          cd Workflow-CI/MLProject
+          cd MLProject # Diubah, tidak perlu pakai Workflow-CI lagi
           python modelling.py
 
       - name: Login to Docker Hub
@@ -35,8 +35,7 @@ jobs:
 
       - name: Build Docker Image using MLflow
         run: |
-          cd Workflow-CI/MLProject
-          # Perintah krusial yang diminta di kriteria penilaian
+          cd MLProject # Diubah
           mlflow models build-docker -m model_dir -n ${{ secrets.DOCKERHUB_USERNAME }}/obesity-ml-model:latest
 
       - name: Push Docker Image to Docker Hub
