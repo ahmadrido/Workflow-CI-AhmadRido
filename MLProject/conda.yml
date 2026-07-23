@@ -2,7 +2,7 @@ name: obesity-model-env
 channels:
   - conda-forge
 dependencies:
-  - python=3.12.7git
+  - python=3.12.7
   - pip
   - pip:
     - pandas
